@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <style type="text/css">
+            .head{
+                background-color:#223343;
+                color:white;
+                font-weight:bold;
+                font-size:40px;
+                text-align:center;			
+                height:200px;			
+                line-height:200px;
+            }
+            .content{
+                width:300px;
+                margin-left:auto;
+                margin-right:auto;
+            } 
+            .box{
+			text-align:center;			
+			margin-left:auto;
+			margin-right:auto;
+		    }           
+        </style>
+    </head>  
+    <body style="margin:0px;">
+        <form action="/signin", method="POST">	
+        <div class="head">歡迎光臨，這是會員頁</div>
+        <div class="box">
+			<h2>{{name}}，歡迎登入系統</h2>            
+		</div> 	
+        </form> 
+        <form action="/signout", method="GET">	
+            <div class="box">
+                <h2><a href="/signout">登出系統</a></h2>
+            </div> 
+        </form>  	
+        
+        <br><div class="box">
+                <h2>查詢會員姓名</h2>
+                <input type="text" style="width:150px;height:20px;" id="inname"/>
+                <input type="button" style="width:50px;height:30px;"  onclick="searmember()" value="查詢"></input>
+                <span><h2 id="smember"></h2></span>
+            </div>  
+
+    </body>
+    <script type="text/javascript">
+        
+
+        function searmember(){
+            var inname = document.getElementById("inname").value;
+            var req = new XMLHttpRequest();
+            req.open("GET", "http://127.0.0.1:3000/api/users?username="+inname);
+            req.onload=function(){
+                var smember = document.getElementById('smember');
+                smember.innerHTML = this.responseText;
+            };
+            req.send();
+        }
+    </script> 
+</html>
